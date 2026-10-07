@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sena Hub Key</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    font-family:Arial, Helvetica, sans-serif;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        radial-gradient(circle at 50% 45%,#333 0%,#171717 28%,#080808 60%,#000 100%);
+}
+
+
+/* ================= BACKGROUND ================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:-10;
+}
+
+.background::before{
+    content:"";
+    position:absolute;
+    width:900px;
+    height:900px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(
+        circle,
+        rgba(255,255,255,.1),
+        transparent 65%
+    );
+    filter:blur(35px);
+    animation:mainGlow 7s ease-in-out infinite;
+}
+
+@keyframes mainGlow{
+    0%,100%{
+        transform:translate(-50%,-50%) scale(.85);
+        opacity:.4;
+    }
+    50%{
+        transform:translate(-50%,-50%) scale(1.2);
+        opacity:1;
+    }
+}
+
+
+/* Moving grid */
+
+.grid{
+    position:absolute;
+    width:200%;
+    height:200%;
+    left:-50%;
+    top:-20%;
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:55px 55px;
+    transform:perspective(600px) rotateX(65deg);
+    animation:gridMove 14s linear infinite;
+}
+
+@keyframes gridMove{
+    from{
+        background-position:0 0,0 0;
+    }
+    to{
+        background-position:0 550px,550px 0;
+    }
+}
+
+
+/* Background rings */
+
+.bg-ring{
+    position:absolute;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.055);
+    box-shadow:0 0 40px rgba(255,255,255,.025);
+    animation:rotateRing linear infinite;
+}
+
+.bg-ring.one{
+    width:650px;
+    height:650px;
+    left:-280px;
+    top:-240px;
+    animation-duration:30s;
+}
+
+.bg-ring.two{
+    width:850px;
+    height:850px;
+    right:-400px;
+    bottom:-400px;
+    animation-duration:42s;
+    animation-direction:reverse;
+}
+
+.bg-ring.three{
+    width:300px;
+    height:300px;
+    right:5%;
+    top:5%;
+    animation-duration:18s;
+}
+
+@keyframes rotateRing{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* Floating orbs */
+
+.orb{
+    position:absolute;
+    border-radius:50%;
+    background:radial-gradient(
+        circle,
+        rgba(255,255,255,.13),
+        rgba(255,255,255,.02) 45%,
+        transparent 70%
+    );
+    filter:blur(4px);
+    animation:orbFloat 10s ease-in-out infinite;
+}
+
+.orb.one{
+    width:330px;
+    height:330px;
+    left:-160px;
+    top:15%;
+}
+
+.orb.two{
+    width:420px;
+    height:420px;
+    right:-210px;
+    bottom:-120px;
+    animation-delay:-4s;
+}
+
+.orb.three{
+    width:160px;
+    height:160px;
+    right:17%;
+    top:8%;
+    animation-delay:-7s;
+}
+
+@keyframes orbFloat{
+    0%,100%{
+        transform:translate(0,0) scale(1);
+    }
+    50%{
+        transform:translate(35px,-35px) scale(1.15);
+    }
+}
+
+
+/* Particles */
+
+.particles{
+    position:absolute;
+    inset:0;
+}
+
+.particle{
+    position:absolute;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:
+        0 0 8px #fff,
+        0 0 18px rgba(255,255,255,.4);
+    opacity:0;
+    animation:particleMove linear infinite;
+}
+
+@keyframes particleMove{
+    0%{
+        transform:translateY(110vh) scale(.2);
+        opacity:0;
+    }
+    15%{
+        opacity:.9;
+    }
+    70%{
+        opacity:.5;
+    }
+    100%{
+        transform:translateY(-15vh) scale(1.4);
+        opacity:0;
+    }
+}
+
+
+/* Shooting lights */
+
+.shooting{
+    position:absolute;
+    width:130px;
+    height:1px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.9),
+        transparent
+    );
+    transform:rotate(-35deg);
+    opacity:0;
+    animation:shooting 5s linear infinite;
+}
+
+.shooting.one{
+    top:8%;
+    left:-15%;
+}
+
+.shooting.two{
+    top:38%;
+    left:-15%;
+    animation-delay:2s;
+}
+
+.shooting.three{
+    top:68%;
+    left:-15%;
+    animation-delay:4s;
+}
+
+@keyframes shooting{
+    0%{
+        transform:translateX(0) translateY(0) rotate(-35deg);
+        opacity:0;
+    }
+    5%{
+        opacity:1;
+    }
+    20%{
+        transform:translateX(130vw) translateY(70vh) rotate(-35deg);
+        opacity:0;
+    }
+    100%{
+        opacity:0;
+    }
+}
+
+
+/* ================= CARD ================= */
+
+.card{
+    position:relative;
+    width:min(92%,540px);
+    padding:45px 38px;
+    border-radius:32px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(55,55,55,.58),
+            rgba(7,7,7,.92)
+        );
+
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.9),
+        0 0 70px rgba(255,255,255,.025),
+        inset 0 1px 0 rgba(255,255,255,.12);
+
+    backdrop-filter:blur(28px);
+    -webkit-backdrop-filter:blur(28px);
+
+    text-align:center;
+
+    animation:cardEnter 1s cubic-bezier(.16,1,.3,1);
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    inset:-1px;
+    border-radius:inherit;
+    padding:1px;
+
+    background:
+        conic-gradient(
+            from 0deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent,
+            rgba(255,255,255,.12),
+            transparent
+        );
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+
+    animation:borderRotate 7s linear infinite;
+    pointer-events:none;
+}
+
+@keyframes borderRotate{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.card::after{
+    content:"";
+    position:absolute;
+    width:120%;
+    height:40%;
+    left:-130%;
+    top:-20%;
+
+    background:
+        linear-gradient(
+            100deg,
+            transparent,
+            rgba(255,255,255,.07),
+            transparent
+        );
+
+    transform:rotate(-15deg);
+    animation:cardSweep 6s ease-in-out infinite;
+    pointer-events:none;
+}
+
+@keyframes cardSweep{
+    0%,60%{
+        left:-130%;
+    }
+    85%,100%{
+        left:130%;
+    }
+}
+
+@keyframes cardEnter{
+    from{
+        opacity:0;
+        transform:translateY(55px) scale(.88);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+
+/* ================= S LOGO ================= */
+
+.logo-area{
+    position:relative;
+    width:130px;
+    height:130px;
+    margin:0 auto 25px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+
+/* Outer rings */
+
+.energy-ring{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.16);
+    border-top-color:#fff;
+    border-right-color:rgba(255,255,255,.3);
+
+    box-shadow:
+        0 0 25px rgba(255,255,255,.08);
+
+    animation:energyRotate 4s linear infinite;
+}
+
+.energy-ring.two{
+    inset:10px;
+    border:1px dashed rgba(255,255,255,.2);
+    border-bottom-color:#fff;
+    animation:energyReverse 6s linear infinite;
+}
+
+.energy-ring.three{
+    inset:20px;
+    border:1px solid rgba(255,255,255,.08);
+    animation:energyRotate 9s linear infinite;
+}
+
+@keyframes energyRotate{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes energyReverse{
+    to{
+        transform:rotate(-360deg);
+    }
+}
+
+
+/* Orbit dots */
+
+.energy-dot{
+    position:absolute;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 0 14px #fff;
+
+    animation:orbit 4s linear infinite;
+}
+
+.energy-dot:nth-of-type(2){
+    animation-delay:-1.3s;
+}
+
+.energy-dot:nth-of-type(3){
+    animation-delay:-2.6s;
+}
+
+@keyframes orbit{
+    from{
+        transform:
+            rotate(0deg)
+            translateX(58px)
+            rotate(0deg);
+    }
+
+    to{
+        transform:
+            rotate(360deg)
+            translateX(58px)
+            rotate(-360deg);
+    }
+}
+
+
+/* S CORE */
+
+.logo-core{
+    position:relative;
+
+    width:88px;
+    height:88px;
+
+    border-radius:27px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #666,
+            #292929 48%,
+            #080808
+        );
+
+    border:1px solid rgba(255,255,255,.28);
+
+    box-shadow:
+        inset 0 2px 2px rgba(255,255,255,.2),
+        inset 0 -15px 25px rgba(0,0,0,.65),
+        0 20px 50px rgba(0,0,0,.8),
+        0 0 45px rgba(255,255,255,.08);
+
+    animation:logoPulse 3s ease-in-out infinite;
+}
+
+.logo-core::before{
+    content:"";
+    position:absolute;
+    inset:2px;
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            125deg,
+            rgba(255,255,255,.25),
+            transparent 35%
+        );
+}
+
+
+/* PERFECTLY STRAIGHT S */
+
+.logo-s{
+    position:relative;
+
+    font-family:
+        Arial Black,
+        Impact,
+        Arial,
+        sans-serif;
+
+    font-size:62px;
+
+    font-weight:900;
+
+    /* Đã bỏ italic */
+    font-style:normal;
+
+    /* Đã bỏ skew */
+    transform:none;
+
+    line-height:1;
+
+    color:#fff;
+
+    text-align:center;
+
+    display:block;
+
+    width:100%;
+
+    text-shadow:
+        2px 3px 0 #555,
+        4px 6px 0 #202020,
+        0 0 18px rgba(255,255,255,.35);
+
+    animation:sGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes logoPulse{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.06);
+    }
+}
+
+@keyframes sGlow{
+    0%,100%{
+        filter:drop-shadow(0 0 3px rgba(255,255,255,.2));
+    }
+    50%{
+        filter:drop-shadow(0 0 14px rgba(255,255,255,.5));
+    }
+}
+
+
+/* ================= TITLE ================= */
+
+.title{
+    font-size:clamp(32px,8vw,46px);
+    font-weight:950;
+    letter-spacing:-2px;
+    line-height:1;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #888,
+            #fff,
+            #555,
+            #fff
+        );
+
+    background-size:300% 100%;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    animation:titleFlow 5s linear infinite;
+}
+
+@keyframes titleFlow{
+    from{
+        background-position:0%;
+    }
+    to{
+        background-position:300%;
+    }
+}
+
+.subtitle{
+    margin-top:12px;
+    color:#8b8b8b;
+    font-size:14px;
+    letter-spacing:1px;
+}
+
+
+/* ================= STATUS ================= */
+
+.status{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+
+    margin-top:21px;
+
+    padding:8px 16px;
+
+    border-radius:50px;
+
+    color:#ddd;
+
+    background:rgba(255,255,255,.045);
+
+    border:1px solid rgba(255,255,255,.11);
+
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:1.5px;
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+
+    background:#fff;
+
+    box-shadow:
+        0 0 8px #fff,
+        0 0 18px rgba(255,255,255,.6);
+
+    animation:statusBlink 1.3s infinite;
+}
+
+@keyframes statusBlink{
+    0%,100%{
+        opacity:1;
+        transform:scale(1);
+    }
+    50%{
+        opacity:.25;
+        transform:scale(.65);
+    }
+}
+
+
+/* ================= KEY ================= */
+
+.key-box{
+    position:relative;
+
+    margin-top:28px;
+    padding:21px;
+
+    border-radius:20px;
+
+    text-align:left;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.065),
+            rgba(0,0,0,.38)
+        );
+
+    border:1px solid rgba(255,255,255,.11);
+
+    overflow:hidden;
+}
+
+.key-box::before{
+    content:"";
+
+    position:absolute;
+
+    left:-100%;
+    bottom:0;
+
+    width:100%;
+    height:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #fff,
+            transparent
+        );
+
+    animation:keyScan 3s linear infinite;
+}
+
+@keyframes keyScan{
+    from{
+        left:-100%;
+    }
+    to{
+        left:100%;
+    }
+}
+
+.label{
+    margin-bottom:10px;
+
+    color:#6f6f6f;
+
+    font-size:10px;
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.key{
+    color:#eee;
+
+    font-size:15px;
+    font-weight:750;
+
+    line-height:1.6;
+
+    word-break:break-all;
+
+    text-shadow:
+        0 0 15px rgba(255,255,255,.12);
+}
+
+
+/* ================= COPY BUTTON ================= */
+
+.buttons{
+    margin-top:14px;
+}
+
+.copy{
+    position:relative;
+
+    width:100%;
+
+    padding:15px;
+
+    border:0;
+
+    border-radius:15px;
+
+    color:#080808;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff,
+            #999
+        );
+
+    font-size:13px;
+    font-weight:900;
+
+    letter-spacing:.7px;
+
+    cursor:pointer;
+
+    overflow:hidden;
+
+    transition:.3s ease;
+
+    box-shadow:
+        0 10px 30px rgba(255,255,255,.08);
+}
+
+.copy::after{
+    content:"";
+
+    position:absolute;
+
+    width:60px;
+    height:160%;
+
+    top:-30%;
+    left:-80px;
+
+    background:rgba(255,255,255,.65);
+
+    filter:blur(15px);
+
+    transform:rotate(20deg);
+
+    animation:buttonLight 3s infinite;
+}
+
+@keyframes buttonLight{
+    0%{
+        left:-100px;
+    }
+
+    45%,100%{
+        left:130%;
+    }
+}
+
+.copy:hover{
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 16px 40px rgba(255,255,255,.18);
+}
+
+.copy:active{
+    transform:scale(.96);
+}
+
+
+/* ================= MESSAGE ================= */
+
+.message{
+    min-height:20px;
+
+    margin-top:15px;
+
+    color:#d0d0d0;
+
+    font-size:12px;
+
+    font-weight:800;
+}
+
+
+/* ================= FOOTER ================= */
+
+.footer{
+    margin-top:23px;
+
+    color:#555;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:520px){
+
+    body{
+        padding:15px;
+    }
+
+    .card{
+        padding:35px 21px;
+        border-radius:27px;
+    }
+
+    .logo-area{
+        width:110px;
+        height:110px;
+    }
+
+    .logo-core{
+        width:78px;
+        height:78px;
+    }
+
+    .logo-s{
+        font-size:55px;
+    }
+
+    .title{
+        font-size:34px;
+    }
+
+    .key{
+        font-size:13px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================= BACKGROUND ================= -->
+
+<div class="background">
+
+    <div class="grid"></div>
+
+    <div class="bg-ring one"></div>
+    <div class="bg-ring two"></div>
+    <div class="bg-ring three"></div>
+
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+
+    <div class="shooting one"></div>
+    <div class="shooting two"></div>
+    <div class="shooting three"></div>
+
+    <div class="particles" id="particles"></div>
+
+</div>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="card">
+
+
+    <!-- LOGO -->
+
+    <div class="logo-area">
+
+        <div class="energy-ring"></div>
+        <div class="energy-ring two"></div>
+        <div class="energy-ring three"></div>
+
+        <span class="energy-dot"></span>
+        <span class="energy-dot"></span>
+        <span class="energy-dot"></span>
+
+        <div class="logo-core">
+
+            <div class="logo-s">S</div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TITLE -->
+
+    <h1 class="title">
+        Sena Hub Key
+    </h1>
+
+    <p class="subtitle">
+        Your access key is ready
+    </p>
+
+
+    <!-- STATUS -->
+
+    <div class="status">
+
+        <span class="status-dot"></span>
+
+        KEY ACTIVE
+
+    </div>
+
+
+    <!-- KEY -->
+
+    <div class="key-box">
+
+        <div class="label">
+            Your Key
+        </div>
+
+        <div class="key" id="key">
+            SenaHubKeyHskwow - Jaksowjwowolapwish
+        </div>
+
+    </div>
+
+
+    <!-- ONLY COPY BUTTON -->
+
+    <div class="buttons">
+
+        <button
+            class="copy"
+            onclick="copyKey()"
+        >
+            COPY KEY
+        </button>
+
+    </div>
+
+
+    <div
+        class="message"
+        id="message"
+    ></div>
+
+
+    <div class="footer">
+        Sena Hub • Secure Key System
+    </div>
+
+</main>
+
+
+<script>
+
+/* ================= KEY ================= */
+
+const keyText =
+"SenaHubKeyHskwow - Jaksowjwowolapwish";
+
+
+/* ================= COPY ================= */
+
+function copyKey(){
+
+    const message =
+        document.getElementById("message");
+
+    if(navigator.clipboard){
+
+        navigator.clipboard
+        .writeText(keyText)
+        .then(()=>{
+
+            message.textContent =
+                "✓ Key copied successfully";
+
+            setTimeout(()=>{
+                message.textContent="";
+            },2500);
+
+        })
+        .catch(()=>{
+            fallbackCopy(message);
+        });
+
+    }else{
+
+        fallbackCopy(message);
+
+    }
+}
+
+
+function fallbackCopy(message){
+
+    const textarea =
+        document.createElement("textarea");
+
+    textarea.value=keyText;
+
+    textarea.style.position="fixed";
+    textarea.style.opacity="0";
+
+    document.body.appendChild(textarea);
+
+    textarea.select();
+
+    try{
+
+        document.execCommand("copy");
+
+        message.textContent =
+            "✓ Key copied successfully";
+
+    }catch{
+
+        message.textContent =
+            "Please copy the key manually";
+
+    }
+
+    textarea.remove();
+
+    setTimeout(()=>{
+        message.textContent="";
+    },2500);
+}
+
+
+/* ================= PARTICLES ================= */
+
+const particleContainer =
+    document.getElementById("particles");
+
+for(let i=0;i<65;i++){
+
+    const particle =
+        document.createElement("span");
+
+    particle.className="particle";
+
+    particle.style.left =
+        Math.random()*100+"%";
+
+    particle.style.animationDuration =
+        (5+Math.random()*12)+"s";
+
+    particle.style.animationDelay =
+        (-Math.random()*15)+"s";
+
+    const size =
+        1+Math.random()*3;
+
+    particle.style.width =
+        size+"px";
+
+    particle.style.height =
+        size+"px";
+
+    particleContainer.appendChild(
+        particle
+    );
+}
+
+</script>
+
+</body>
+</html>
